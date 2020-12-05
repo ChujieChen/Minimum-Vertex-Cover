@@ -2,10 +2,8 @@ package main.java;
 
 import java.io.File;
 
-import main.java.method.Approx.Approx;
 import main.java.method.BnB.BranchAndBound;
-import main.java.method.LS1.SAVC;
-import main.java.method.LS2.HillClimbing;
+import main.java.method.LS.HillClimbing;
 
 public class JavaAlgo {
     public static void main(String[] args) {
@@ -15,14 +13,36 @@ public class JavaAlgo {
             file.mkdir();//create the dir
         }
         try {
-            String filename = args[1];
-            String algoName = args[3];
-            int time = Integer.parseInt(args[5]);
-            int seed = Integer.parseInt(args[7]);
+        	String filename = "";
+        	String algoName = "";
+            int time = 10;
+            int seed = 0;
+            
+        	for (int i = 0; i < args.length; i+=2) {
+
+        		switch (args[i]) {
+				case "-inst":
+					filename = args[i + 1];
+					break;
+				case "-alg":
+					algoName = args[i + 1];
+					break;
+				case "-time":
+					time = Integer.parseInt(args[i + 1]);
+					break;
+				case "-seed":
+					seed = Integer.parseInt(args[i + 1]);
+					break;
+				default:
+					System.out.println("ERROR: invalid command arguments");
+					break;
+				}
+        	}
+            System.out.println(algoName);
             Algo algo = null;
             
             String graphPrefix = filename.substring(0, filename.length() - 6);
-            String inFileName = "src/data/" + filename;
+            String inFileName = "./data/" + filename;
             String outSol = "./output/";
             String outTrace = "./output/";
             
@@ -32,20 +52,10 @@ public class JavaAlgo {
                     outSol = outSol+graphPrefix+"_BnB_"+time+".sol";
                     outTrace = outTrace+graphPrefix+"_BnB_"+time+".trace";
                     break;
-                case "Approx":
-                    algo = new Approx();
-                    outSol = outSol+graphPrefix+"_Approx_"+time+"_"+seed+".sol";
-                    outTrace = outTrace+graphPrefix+"_Approx_"+time+"_"+seed+".trace";
-                    break;
-                case "LS1":
-                    algo = new SAVC();
-                    outSol = outSol+graphPrefix+"_LS1_"+time+"_"+seed+".sol";
-                    outTrace = outTrace+graphPrefix+"_LS1_"+time+"_"+seed+".trace";
-                    break;
-                case "LS2":
+                case "LS":
                     algo = new HillClimbing();
-                    outSol = outSol+graphPrefix+"_LS2_"+time+"_"+seed+".sol";
-                    outTrace = outTrace+graphPrefix+"_LS2_"+time+"_"+seed+".trace";
+                    outSol = outSol+graphPrefix+"_LS_"+time+"_"+seed+".sol";
+                    outTrace = outTrace+graphPrefix+"_LS_"+time+"_"+seed+".trace";
                     break;
                 default:
                     System.out.println("ERROR: unimplemented algorithm");

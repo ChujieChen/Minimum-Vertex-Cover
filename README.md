@@ -1,20 +1,23 @@
 # Minimum Vertex Cover
-Java implementation of Gatech CSE6140 group project. All four algorithms are tested on Mac / Linux.
+Group 4 competition-only branch. The program has been compiled on a mac machine. `.class` files are included in this branch.
 
-## Compile
+## Compile (if needed)
 At the project root directory run:
 ```
 javac $(find . -name "*.java")
 ```
 
 ## Run MVC
-Change directory to `/src`, then run `java main.java.JavaAlgo -inst <filename> -alg [BnB|Approx|LS1|LS2] -time <cutoff in seconds> -seed <random seed>`.
+Change directory to `/src`, then run 
 
-Note that  with BnB, you still have to provide a `-seed <random seed>` even though the seed will not be used at all.
+`java main.java.JavaAlgo -inst <filename> -alg [BnB|LS] -time <cutoff in seconds> [-seed <random seed>]`.
 
 An example shows below:
 
 ```bash
 cd src    # now at /path/to/project/src/
-java main.java.JavaAlgo -inst jazz.graph -alg LS2 -time 600 -seed 9
+java main.java.JavaAlgo -inst jazz.graph -alg LS -time 600 -seed 9
 ```
+
+## Data and Output
+All graphs must be under `src/data` folder. Outputs will exist under `src/output` folder.
